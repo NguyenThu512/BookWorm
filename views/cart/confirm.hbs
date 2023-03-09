@@ -1,0 +1,176 @@
+<!doctype html>
+<html><!-- InstanceBegin template="/Templates/Head-foot-lr.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta charset="utf-8">
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>BookWorm</title>
+<!-- InstanceEndEditable -->
+<link href="/BookWorm/css/bootstrap.css" rel="stylesheet" type="text/css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="/BookWorm/css/main style.css" rel="stylesheet" type="text/css">
+<script src="/BookWorm/js/jquery-3.3.1.min.js"></script>
+<script src="/BookWorm/js/bootstrap-4.3.1.js"></script>
+</head>
+
+<body>
+	<header class="header-lr">
+		<nav class="navbar navbar-expand-lg navbar-light flex-lg-nowrap w-100">
+			<a class="navbar-brand" href="/home"><img src="/BookWorm/img/logo.png" style="width: 90px; height: auto"  alt="logo"></a>
+  			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    			<span class="navbar-toggler-icon"></span>
+  			</button>
+ 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  			  <ul class="navbar-nav menu">
+    		  	<li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle font-weight-bold text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Thể loại</a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          	<li class="dropdown-submenu">
+				{{#each lcCategory}}
+					<a href="/buy/byCat/{{catID}}" class="dropdown-item"> {{catName}}</a>
+				{{/each}}
+			</li>
+        </ul>
+      </li>
+    		  </ul>
+
+			  <form id="frmsearch" action="/buy/search" method="POST" class="form-inline my-2 my-lg-0 w-50	 mr-auto ml-4">
+      			<input class="form-control mr-sm-2 w-75" type="search" id="search" name="search" placeholder="Tìm sách theo thể loại, tác giả,.." aria-label="Search">
+      			<button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
+    		  </form>
+
+				<form id="frmlogout" action="/logout" method="POST"></form>
+				<ul class="navbar-nav menu">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle text-white mr-2" href="#" id="navbarDropdown-1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fa fa-user fa-2x">
+								{{#each confirmSell}}
+									{{#if NumberOrder}}
+										<p class="num-product">{{NumberOrder}}</p>
+									{{/if}}							
+								{{/each}}
+							</i>
+							{{authUser.fullName}}
+
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown-1">
+							<li class="dropdown-submenu">
+								<a class="dropdown-item" href="/profile">Tài khoản</a>
+								<a class="dropdown-item" href="/sell">
+									Bán sách 
+									{{#each confirmSell}}
+									{{#if NumberOrder}}
+									<span class="badge badge-pill badge-danger float-right">{{NumberOrder}}</span>
+									{{/if}}
+									{{/each}}
+								</a>
+							</li>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="javascript: $('#frmlogout').submit();">Đăng xuất  <i class="fa fa-sign-out"></i></a>
+						</ul>
+					</li>
+				</ul>
+				<a href="#" role="button" class="nav-link  text-white position-relative mr-2"><i class=" fa fa-bell fa-2x"></i> Thông báo<p class="num-product">0</p></a>
+				<a href="/cart" class="text-white ml-4 nav-link position-relative" role="button"><i class="fa fa-shopping-cart fa-2x"></i> Giỏ hàng <p class="num-product">{{cartSummary}}</p></a>
+		  </div>
+		</nav>
+	</header>
+
+    <main>
+	<div class="bg-warning mt-3">
+			<div class="container">
+				<h2 class="text-white pt-4 pb-4 font-weight-bold">Thông tin người đặt hàng</h2>
+			</div>
+	</div>
+    <form action="/cart/checkout" method="POST">
+	<div class="container bg-white">
+		<div class="row pt-5 pb-5">
+            
+                <div class="col-6">
+                        <label for="name" class="font-weight-bold">Họ và tên</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{authUser.fullName}}">
+                        <label for="email" class="font-weight-bold mt-3">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" value = "{{authUser.email}}">
+                        <label for="phone" class="font-weight-bold mt-3">Số điện thoại</label>
+                        <input type="text" class="form-control" id="phone" name="phone" value="{{authUser.phoneNumber}}">
+                        <label for="adress" class="font-weight-bold mt-3">Địa chỉ giao hàng</label>
+                        <input type="text" class="form-control" id="adress" name = "address" value="{{authUser.address}}">
+
+                </div>
+                <div class="col-6">
+                    <p class="font-weight-bold">Đơn hàng <span><a href="/cart" class="float-right font-weight-normal">Sửa</a></span></p>
+                    <div class="dropdown-divider"></div>
+                    {{#each this.items}}
+                        <p class="font-weight-bold">{{book.bookName}}</p>
+                        <p class="font-weight-bold">Số lượng: {{quantity}}<span class="float-right">{{format_number amount}}</span></p>
+                        <div class="dropdown-divider"></div>
+                    {{/each}}
+                    
+                    <p class="font-weight-bold">Thành tiền: <span class="font-weight-bold text-danger float-right">{{format_number this.total}}</span></p>
+                    <button type="submit" class="btn btn-danger text-center pl-5 pr-5 font-weight-bold">Thanh toán </button>
+                    <a href="/home" class="btn btn-success text-center pl-5 pr-5 font-weight-bold ml-3">Hủy bỏ</a>
+                </div>
+
+		</div>
+	</div>
+    </form>
+	</main>
+<!-- InstanceEndEditable -->
+<script>
+$("#frmsearch").submit(function(event){
+			event.preventDefault();
+			const find = $('#search').val();
+			console.log(find);
+			if (find.length===0)
+			{
+				alert('Bạn chưa nhập tên sách hoặc tên tác giả');
+				return;
+			}
+			else{
+				$("#frmsearch").off('submit').submit();
+			}
+});
+	</script>
+<!-- InstanceEndEditable -->
+	<footer class="footer-lr">
+		<div class="row">
+			<div class="col-3">
+				<ul class="nd">
+					<p style="font-weight: bold">Hỗ trợ khách hàng</p>
+					<li><a href="#">Các câu hỏi thường gặp</a></li>
+					<li><a href="#">Phương thức vận chuyển</a></li>
+					<li><a href="#">Hướng dẫn đặt hàng</a></li>
+					<li><a href="#">Chính sách đổi trả</a></li>
+					<li><a href="#">Hỗ trợ khách hàng</a></li>
+					<li><a href="#">Báo lỗi bảo mật</a></li>
+				</ul>
+			</div>
+			<div class="col-3">
+				<ul class="nd">
+					<p style="font-weight: bold">Về BookWorm</p>
+					<li><a href="#">Giới thiệu về BookWorm</a></li>
+					<li><a href="#">Tuyển dụng</a></li>
+					<li><a href="#">Chính sách bảo mật</a></li>
+					<li><a href="#">Điều khoản sử dụng</a></li>
+				</ul>
+			</div>
+			<div class="col-3">
+				<ul class="nd">
+					<p style="font-weight: bold">Hợp tác và liên kết</p>
+					<li><a href="#">Bán hàng cùng BookWorm</a></li>
+				</ul>
+			</div>
+			<div class="col-3">
+				<ul class="nd">
+					<p style="font-weight: bold">Kết nối với chúng tôi</p>
+					<li>
+						<a href="#"><i class="fa fa-twitter-square fa-2x mr-2"></i></a>
+						<a href="#"><i class="fa fa-facebook-square fa-2x mr-2"></i></a>
+						<a href="#"><i class="fa fa-instagram fa-2x"></i></a>
+					</li>
+					<p style="font-weight: bold" class="mt-2">LUÔN CẬP NHẬT<br>Về các cuốn sách mới</p>
+				</ul>
+			</div>
+		</div>
+	</footer>
+</body>
+<!-- InstanceEnd --></html>

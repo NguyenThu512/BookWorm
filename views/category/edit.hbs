@@ -1,0 +1,16 @@
+<div class="col-9">
+	<form method="POST">
+		<div class="form-group">
+			<label for="catID">ID</label>
+			<input class="w-25" type="text" id="catID" name="catID" readonly value="{{this.category.catID}}">
+		</div>
+
+		<div class="form-group">
+			<label for="catName">Tên thể loại:</label>
+			<input class="form-control w-50" type="text" id="catName" name="catName" autofocus value="{{this.category.catName}}">
+		</div>
+
+		<a href='/category' role="button" class=" btn btn-outline-warning" >Hủy bỏ</a>
+		<button type="submit" class="btn btn-outline-danger ml-5" formaction="/category/del">Xóa</button>
+		<button type="submit" class="btn btn-outline-primary ml-5" formaction="/category/save">Xác nhận</button>
+	</form>

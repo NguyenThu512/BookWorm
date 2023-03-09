@@ -1,0 +1,15 @@
+<div class="col-9 row">
+  {{#if this.empty}}
+    <h5> Không có dữ liệu </h5>
+  {{else}}
+    {{#each this.products }}
+        <a class="card pt-2 pb-2 col-3 product-item" href="/buy/detail/{{bookID}}">
+          <img src="/BookWorm/book/{{bookID}}.jpg" class="img-fluid">
+          <div class="container">
+            <h6><b>{{bookName}}</b></h6>	
+            <b class="text-danger">{{format_number bookPrice}}</b>
+          </div>
+        </a>
+    {{/each}}   
+  {{/if}}    		
+</div>

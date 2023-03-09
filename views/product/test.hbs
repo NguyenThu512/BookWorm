@@ -1,0 +1,251 @@
+{{#section 'js'}}
+<script>
+		$("form").submit(function(event){
+			event.preventDefault();
+			const buy = $('#quantity').val();
+      console.log(buy);
+        if(buy.length===0)
+          {
+            alert('chưa nhập số lượng');
+				    return;
+          }
+        else
+        {
+					  $("form").off('submit').submit();
+        }
+			});
+
+	</script>
+{{/section}}
+
+{{#with book}}
+<div class="card">
+  <h4 class="card-header">
+    {{bookName}}
+  </h4>
+  <div class="card-body">
+    <img src="/BookWorm/book/{{bookID}}.jpg" alt="{{book.bookName}}">
+    <p class="card-text mt-3">Giá bán: {{format_number bookPrice}}</p>
+    <p class="card-text">Tồn kho: {{quantity}}</p>
+    <p class="card-text">
+      {{{bookDescription}}}
+    </p>
+  {{#if quantity}}
+    <form action="/cart/add" method="POST" >
+      <label for="quantity">Số lượng</label>
+      <input type="hidden" value="{{bookID}}" name="id">
+      <input class="w-25" type="number" id="quantity" name="quantity" min="1" max="{{quantity}}" value="1"><br>
+      <td><button class="btn btn-outline-success fa fa-plus font-weight-bold" type="submit">Thêm vào giỏ hàng</button></td>
+    </form>
+      
+    
+  {{else}}
+    <p class="card-text">Hết hàng</p>
+  {{/if}}
+  
+
+  </div>
+  <div class="card-footer text-muted">
+    <small>Last upadated 3 minutes ago.</small>
+  </div>
+</div>
+{{/with}}
+
+
+
+
+
+{{#section 'js'}}
+<script>
+  $('.addItem').on('click', function () {
+    const id = $(this).data('id');
+    $('#txtProId').val(id);
+    $('#frmAddItem').submit();
+  })
+</script>
+{{/section}}
+<div class="card">
+<div class = "card-body">
+    {{#if this.empty}}
+        <h5> Không có dữ liệu </h5>
+    {{else}}
+
+    <form action="/cart/add" method="POST" id="frmAddItem">
+    <input type="hidden" value="1" name="quantity">
+    <input id="txtProId" type="hidden" name="id">
+    </form>
+
+    <table class="table table-hover">
+    <thead>
+        <tr>
+        <th scope="col">Ảnh</th>
+        <th scope="col">Tên</th>
+        <th scope="col">Giá</th>
+        <th scope="col">Số lượng</th>
+        <th scope="col">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each this.products }}
+            <tr>
+        <td><img src="/BookWorm/img/{{bookID}}/thumb.jpg" alt="{{bookName}}" title="{{bookName}}"></td>
+        <td>{{bookName}}</td>
+        <td>{{format_number bookPrice}}</td>
+        <td>{{quantity}}</td>
+        </tr>
+        <tr>
+            <td><a href="/buy/detail/{{bookID}}" class="btn btn-outline-success fa fa-plus font-weight-bold" role="button"> Mô tả</a></td>
+            <td><a data-id="{{bookID}}" href="javascript:;" class="btn btn-outline-success fa fa-plus font-weight-bold addItem" role="button"> Thêm vào giỏ hàng</a></td>
+        </tr>
+        {{/each}}
+        
+    </tbody>
+
+    </table>
+        <nav>
+        <ul class="pagination">
+        {{#if this.p}}
+        <li class="page-item disabled">
+          <span class="page-link">Previous</span>
+        </li>
+        {{else}}
+        <li class="page-item">
+          <a class="page-link" href="?page={{this.prePage}}">Previous</a>
+        </li> 
+        {{/if}}
+
+        {{#each this.page_numbers}}
+        {{#if isCurrentPage}}
+        <li class="page-item active">
+          <a class="page-link" href="javascript:;">{{value}}</a>
+        </li>
+        {{else}}
+        <li class="page-item">
+          <a class="page-link" href="?page={{value}}">{{value}}</a>
+        </li>
+        {{/if}}
+        {{/each}}
+
+        {{#if this.n}}
+        <li class="page-item disabled">
+          <span class="page-link">Next</span>
+        </li>
+        {{else}} 
+        <li class="page-item">
+          <a class="page-link" href="?page={{this.nextPage}}">Next</a>
+        </li> 
+        {{/if}}
+
+      </ul>
+    </nav>
+    {{/if}}
+</div>
+</div>
+
+
+
+<div class="card">
+  <div class="card-header">
+    <h4>Your Shopping Cart</h4>
+  </div>
+  <div class="card-body">
+    {{#if this.empty}}
+    <h5 class="card-title">Không có dữ liệu!</h5>
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    {{else}}
+    <form id="frmRemoveItem" action="/cart/remove" method="POST">
+      <input type="hidden" id="rProId" name="id">
+    </form>
+
+    <form id="frmIncreaseItem" action="/cart/increase" method="POST">
+      <input type="hidden" id="iProId" name="id1">
+      <input type="hidden" value="1" name="quantity">
+    </form>
+
+    <form id="frmDecreaseItem" action="/cart/decrease" method="POST">
+      <input type="hidden" id="dProId" name="id2">
+      <input type="hidden" value="1" name="quantity">
+    </form>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Product</th>
+          <th scope="col">Price</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Amount</th>
+          <th scope="col">&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.items}}
+        <tr>
+          <td>
+            <a href="/buy/detail/{{book.bookID}}">
+              {{book.bookName}}
+            </a>
+          </td>
+          <td>{{format_number book.bookPrice}}</td>
+          <td>{{quantity}}</td>
+          <td>{{format_number amount}}</td>
+          <td class="text-right">
+            <a data-id="{{book.bookID}}" class="btn btn-sm btn-outline-danger removeItem" title="Remove Item"
+              href="javascript:;" role="button">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </a>
+            {{#if increase}}
+              <a data-id1="{{book.bookID}}" class="btn btn-sm btn-outline-success increaseItem" title="increase Item"
+              href="javascript:;" role="button">
+              +
+              </a>
+            {{/if}}
+            
+            {{#if decrease}}
+              <a data-id2="{{book.bookID}}" class="btn btn-sm btn-outline-success decreaseItem" title="decrease Item"
+              href="javascript:;" role="button">
+              -
+              </a>
+            {{/if}}
+
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{/if}}
+  </div>
+  {{#unless this.empty}}
+  <div class="card-footer">
+    <form action="/cart/checkout" method="POST">
+      <button type="submit" class="btn btn-outline-success float-right">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        Check Out
+      </button>
+    </form>
+  </div>
+  {{/unless}}
+</div>
+
+
+	<script>
+		$("form").submit(function(event){
+			event.preventDefault();
+			const Username = $('#username').val();
+			console.log(Username);
+			if(Username.length===0)
+			{
+				alert('Bạn chưa nhập username');
+				return;
+			}
+			$.getJSON(`/is-available?user=${Username}`, function(data){
+				console.log(data);
+				if(data===true){
+					alert('đăng ký thành công');
+					$("form").off('submit').submit();
+				}else{
+					alert('username đã tồn tại');
+					return ;
+				}
+			});
+
+		});
+	</script>

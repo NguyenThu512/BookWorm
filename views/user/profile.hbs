@@ -1,0 +1,29 @@
+<div class="col-9">
+	<form method="POST">
+		<div class="form-group">
+			<input class="w-25" type="text" id="userID" name="userID" hidden readonly value="{{authUser.userID}}">
+			<input class="w-25" type="text" id="userName" name="userName" hidden readonly value="{{authUser.userName}}">
+		</div>
+		<div class="form-group">
+			<label for="fullName">Họ và tên</label>
+			<input type="text" class="form-control w-50" id="fullName" name="fullName" value="{{authUser.fullName}}">
+		</div>
+		<div class="form-group">
+			<label for="dob">Ngày sinh:</label>
+			<input class="form-control w-50" type="date" id="dob" name="dob" value="{{authUser.dob}}">
+		</div>
+		<div class="form-group">
+			<label for="address">Địa chỉ:</label>
+			<input class="form-control w-50" type="text" id="address" name="address" value="{{authUser.address}}">
+		</div>
+		<div class="form-group">
+			<label for="phoneNumber">Số điện thoại:</label>
+			<input class="form-control w-50" type="text" id="phoneNumber" name="phoneNumber" value="{{authUser.phoneNumber}}">
+		</div>
+		<div class="form-group">
+			<label for="email">Email:</label>
+			<input class="form-control w-50" type="email" id="email" name="email" value="{{authUser.email}}">
+		</div>
+		<button type="submit" class="btn btn-outline-primary" formaction="/save">Xác nhận</button>
+	</form>
+</div>

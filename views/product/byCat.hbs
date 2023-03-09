@@ -1,0 +1,51 @@
+<div class="col-9 row">
+  {{#if this.empty}}
+    <h5> Không có dữ liệu </h5>
+  {{else}}
+    {{#each this.products }}
+        <a class="card pt-2 pb-2 col-3 product-item" href="/buy/detail/{{bookID}}">
+          <img src="/BookWorm/book/{{bookID}}.jpg" class="img-fluid">
+          <div class="container">
+            <h6><b>{{bookName}}</b></h6>	
+            <b class="text-danger">{{format_number bookPrice}}</b>
+          </div>
+        </a>
+    {{/each}}
+    <nav>
+      <ul class="pagination">
+        {{#if this.p}}
+          <li class="page-item disabled">
+            <span class="page-link">Previous</span>
+          </li>
+          {{else}}
+          <li class="page-item">
+            <a class="page-link" href="?page={{this.prePage}}">Previous</a>
+          </li> 
+          {{/if}}
+
+          {{#each this.page_numbers}}
+          {{#if isCurrentPage}}
+          <li class="page-item active">
+            <a class="page-link" href="javascript:;">{{value}}</a>
+          </li>
+          {{else}}
+          <li class="page-item">
+            <a class="page-link" href="?page={{value}}">{{value}}</a>
+          </li>
+          {{/if}}
+          {{/each}}
+
+          {{#if this.n}}
+          <li class="page-item disabled">
+            <span class="page-link">Next</span>
+          </li>
+          {{else}} 
+          <li class="page-item">
+            <a class="page-link" href="?page={{this.nextPage}}">Next</a>
+          </li> 
+          {{/if}}
+
+      </ul>
+    </nav>
+  {{/if}}    		
+</div>

@@ -1,0 +1,109 @@
+<!doctype html>
+<html><!-- InstanceBegin template="/Templates/Head-foot-lr.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta charset="utf-8">
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>BookWorm</title>
+<!-- InstanceEndEditable -->
+<link href="/BookWorm/css/bootstrap.css" rel="stylesheet" type="text/css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="/BookWorm/css/main style.css" rel="stylesheet" type="text/css">
+<script src="/BookWorm/js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+  	<header class="header-lr">
+		<a href="/home"><img src="/BookWorm/img/logo.png" class="logo-lr">
+			<img src="/BookWorm/img/Book Worm.png" class="n-logo-lr mt-4">
+		</a>
+	</header>
+
+	<form method="POST" action="">
+	<!-- InstanceBeginEditable name="main" --><main>
+	<div class="resign pt-5 pb-5 row">
+		<div class="col-4"></div>
+		<div class="col-8">
+		<label for="pwd">Mật khẩu:</label>
+		<input class="w-25" type="password" id="pwd" name="pwd"><br>
+		<label for="cpwd">Xác nhận mật khẩu:</label>
+		<input class="w-25" type="password" id="cpwd" name="cpwd"><br>
+		<a href='/'><button type="button" class="mt-5 cancel" >Hủy bỏ</button></a>
+		<button id="btsubmit" type="submit" class="done ml-5">Xác nhận</button>
+	</div>
+	</main><!-- InstanceEndEditable -->
+	</form>
+
+	<footer class="footer-lr">
+		<div class="row">
+			<div class="col-3">
+				<ul class="nd">
+					<p style="font-weight: bold">Hỗ trợ khách hàng</p>
+					<li><a href="#">Các câu hỏi thường gặp</a></li>
+					<li><a href="#">Phương thức vận chuyển</a></li>
+					<li><a href="#">Hướng dẫn đặt hàng</a></li>
+					<li><a href="#">Chính sách đổi trả</a></li>
+					<li><a href="#">Hỗ trợ khách hàng</a></li>
+					<li><a href="#">Báo lỗi bảo mật</a></li>
+				</ul>
+			</div>
+			<div class="col-3">
+				<ul class="nd">
+					<p style="font-weight: bold">Về BookWorm</p>
+					<li><a href="#">Giới thiệu về BookWorm</a></li>
+					<li><a href="#">Tuyển dụng</a></li>
+					<li><a href="#">Chính sách bảo mật</a></li>
+					<li><a href="#">Điều khoản sử dụng</a></li>
+				</ul>
+			</div>
+			<div class="col-3">
+				<ul class="nd">
+					<p style="font-weight: bold">Hợp tác và liên kết</p>
+					<li><a href="#">Bán hàng cùng BookWorm</a></li>
+				</ul>
+			</div>
+			<div class="col-3">
+				<ul class="nd">
+					<p style="font-weight: bold">Kết nối với chúng tôi</p>
+					<li>
+						<a href="#"><i class="fa fa-twitter-square fa-2x mr-2"></i></a>
+						<a href="#"><i class="fa fa-facebook-square fa-2x mr-2"></i></a>
+						<a href="#"><i class="fa fa-instagram fa-2x"></i></a>
+					</li>
+					<p style="font-weight: bold" class="mt-2">LUÔN CẬP NHẬT<br>Về các cuốn sách mới</p>
+				</ul>
+			</div>
+		</div>
+	</footer>
+	<script>
+		$("form").submit(function(event){
+			event.preventDefault();
+			const pass = $('#pwd').val();
+            const confirm = $('#cpwd').val();
+			
+            if(pass.length===0)
+            {
+                alert('chưa nhập pass');
+				return;
+            }
+            if(confirm.length===0)
+            {
+                alert('chưa nhập lại pass');
+				return;
+            }
+            if(pass!=confirm)
+			{
+				alert('không hợp lệ');
+				return;
+			}
+            else
+            {
+                alert('thay đổi thành công');
+					$("form").off('submit').submit();
+            }
+            
+			
+			});
+
+	</script>
+</body>
+<!-- InstanceEnd --></html>
+	

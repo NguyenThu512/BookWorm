@@ -1,0 +1,26 @@
+<div class="col-9">
+	<div class="container">
+        {{#if this.empty}}
+            <h5> Không có đơn hàng giao dịch bán sách </h5>
+        {{else}}
+	    <div class="row pl-3 text-warning">
+			<div class="col-2 p-0"><h5>Mã đơn hàng </h5></div>
+			<div class="col-2"><h5>Tên sách</h5></div>
+			<div class="col-2"><h5>Số lượng</h5></div>
+			<div class="col-2"><h5>Tổng tiền</h5></div>
+		</div>
+        {{#each this.products }}
+		<div class="card">
+			<div class="row mt-3 pl-3">
+                <div class="col-2"><h5 class="font-weight-bold text-info">Đơn {{orderID}}</h5></div>
+				<div class="col-2"><p>{{bookName}}</p></div>
+				<div class="col-2"><p>{{quantity}}</p></div>	
+                <div class="col-2"><p>{{format_number total}}</p></div>
+                <div class="col-2"><a href='/sell/detailsuccess?orderid={{orderID}}' class="btn btn-outline-success" role="button">Chi tiết</a></div>
+			</div>
+        {{/each}}
+		</div>
+        {{/if}}		
+	</div>
+</div>
+

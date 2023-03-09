@@ -1,0 +1,173 @@
+<!doctype html>
+<html><!-- InstanceBegin template="/Templates/Head-foot-lr.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta charset="utf-8">
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>BookWorm</title>
+<!-- InstanceEndEditable -->
+<link href="/BookWorm/css/bootstrap.css" rel="stylesheet" type="text/css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="/BookWorm/css/main style.css" rel="stylesheet" type="text/css">
+<script src="/BookWorm/js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+  	<header class="header-lr">
+		<a href="/home"><img src="/BookWorm/img/logo.png" class="logo-lr">
+			<img src="/BookWorm/img/Book Worm.png" class="n-logo-lr mt-4">
+		</a>
+	</header>
+
+	<form method="POST" action="">
+	<!-- InstanceBeginEditable name="main" --><main>
+	<div class="resign pt-5 pb-5 row">
+		<div class="col-4"></div>
+		<div class="col-8">
+		<label for="username">Tên đăng nhập:</label>
+		<input class="w-25" type="email" id="username" name="username" autofocus><br>
+		<label for="pwd">Mật khẩu:</label>
+		<input class="w-25" type="password" id="pwd" name="pwd"><br>
+		<label for="cpwd">Xác nhận mật khẩu:</label>
+		<input class="w-25" type="password" id="cpwd" name="cpwd"><br>
+		<label for="name">Họ và tên:</label>
+		<input class="w-25" type="text" id="name" name="name"><br>
+		<label for="birth">Ngày sinh:</label>
+		<input class="w-25" type="date" id="birth" name="birth"><br>
+		<label for="location">Địa chỉ:</label>
+		<input class="w-50" type="text" id="location" name="location"><br>
+		<label for="sex">Giới tính:</label>
+		<input type="radio" id="sex" name="sex" value="nam">
+		<label for="sex">nam</label>
+		<input type="radio" id="sex" name="sex" value="nữ">
+		<label for="sex">nữ</label>
+		<input type="radio" id="sex" name="sex" value="khác">
+		<label for="sex">khác</label><br>
+		<label for="phone">Số điện thoại:</label>
+		<input class="w-25" type="text" id="phone" name="phone"><br>
+		<a href='/' role="button" class="ml-5 btn btn-warning" >Hủy bỏ</a>
+		<button id="btsubmit" type="submit" class="done ml-5">Xác nhận</button>
+	</div>
+	</main><!-- InstanceEndEditable -->
+	</form>
+
+	<footer class="footer-lr">
+		<div class="row">
+			<div class="col-3">
+				<ul class="nd">
+					<p style="font-weight: bold">Hỗ trợ khách hàng</p>
+					<li><a href="#">Các câu hỏi thường gặp</a></li>
+					<li><a href="#">Phương thức vận chuyển</a></li>
+					<li><a href="#">Hướng dẫn đặt hàng</a></li>
+					<li><a href="#">Chính sách đổi trả</a></li>
+					<li><a href="#">Hỗ trợ khách hàng</a></li>
+					<li><a href="#">Báo lỗi bảo mật</a></li>
+				</ul>
+			</div>
+			<div class="col-3">
+				<ul class="nd">
+					<p style="font-weight: bold">Về BookWorm</p>
+					<li><a href="#">Giới thiệu về BookWorm</a></li>
+					<li><a href="#">Tuyển dụng</a></li>
+					<li><a href="#">Chính sách bảo mật</a></li>
+					<li><a href="#">Điều khoản sử dụng</a></li>
+				</ul>
+			</div>
+			<div class="col-3">
+				<ul class="nd">
+					<p style="font-weight: bold">Hợp tác và liên kết</p>
+					<li><a href="#">Bán hàng cùng BookWorm</a></li>
+				</ul>
+			</div>
+			<div class="col-3">
+				<ul class="nd">
+					<p style="font-weight: bold">Kết nối với chúng tôi</p>
+					<li>
+						<a href="#"><i class="fa fa-twitter-square fa-2x mr-2"></i></a>
+						<a href="#"><i class="fa fa-facebook-square fa-2x mr-2"></i></a>
+						<a href="#"><i class="fa fa-instagram fa-2x"></i></a>
+					</li>
+					<p style="font-weight: bold" class="mt-2">LUÔN CẬP NHẬT<br>Về các cuốn sách mới</p>
+				</ul>
+			</div>
+		</div>
+	</footer>
+
+	<script>
+		$("form").submit(function(event){
+			event.preventDefault();
+			const Username = $('#username').val();
+			const Pass = $('#pwd').val();
+			const conPass = $('#cpwd').val();
+			const Name = $('#name').val();
+			const Birth = $('#birth').val();
+			const Sex = $('#sex').val();
+			const Address = $('#location').val();
+			const Phone = $('#phone').val();
+	
+			if(Username.length===0 || Pass.length === 0 || conPass.length === 0 || 
+			Name.length === 0 || Birth.length === 0 || Sex.length === 0 || Address.length === 0 || Phone.length === 0){
+				alert('Chưa điền đầy đủ thông tin');
+				return;
+			}
+
+			if (Pass.length < 3 || Pass.length > 20) {
+				alert('Mật khẩu phải chứa tối thiểu 3 ký tự và tối đa 20 ký tự');
+				return;
+			}
+			else {
+				if (Pass !== conPass){
+					alert('Nhập lại mật khẩu không chính xác');
+					return;
+				}
+			}
+
+			if (Name.length < 2 || Name.indexOf(" ") == -1) {
+				alert('Họ tên không được dưới 2 ký tự và phải chứa ít nhất một khoảng trắng');
+				return;
+			}
+			else {
+				for (i = 0; i < Name.length; ++i) {
+					if (Name.charCodeAt(i) >= 48 && Name.charCodeAt(i) <= 57) {
+						alert('Họ tên không được chứa ký tự là số');
+						return;
+					}
+					else if (Name.charCodeAt(i) === 32 && (Name.charCodeAt(i + 1) < 65 || Name.charCodeAt(i + 1) > 90)) {
+						alert('Chữ cái đầu sau khoảng trắng của Họ tên phải được viết hoa đầy đủ');
+						return;
+					}
+				}
+			}
+
+			if (Address.length < 5) {
+				alert('Địa chỉ không được dưới 5 ký tự');
+				return;
+			}
+			
+			if (Phone.length !== 10) {
+				alert('Số điện thoại nhập vào phải đủ 10 số');
+				return;
+			}
+			else {
+				for (i = 0; i < Phone.length; ++i) {
+					if (Phone.charCodeAt(i) < 48 || Phone.charCodeAt(i) > 57) {
+						alert('Số điện thoại chỉ được chứa ký tự là số');
+						return;
+					}
+				}
+			}
+
+
+			$.getJSON(`/is-available?user=${Username}`, function(data){
+				if(data===true) {
+					alert('Đăng ký thành công');
+					$("form").off('submit').submit();
+				} else {
+					alert('Email đã tồn tại');
+					return ;
+				}
+			})
+		});
+	</script>
+
+</body>
+<!-- InstanceEnd --></html>
+	

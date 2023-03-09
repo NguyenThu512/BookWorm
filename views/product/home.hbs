@@ -1,0 +1,179 @@
+{{#section 'js'}}
+	<script>
+		$('#carousel-example-1').on('slide.bs.carousel', function(f) {
+			var $f = $(f.relatedTarget);
+			var idx = $f.index();
+			var itemsPerSlide = 7;
+			var totalItems = $('#carousel-example-1 .carousel-item').length;
+			if (idx >= totalItems-(itemsPerSlide-1)) {
+				var it = itemsPerSlide - (totalItems - idx);
+				for (var i=0; i<it; i++) {
+					if (f.direction=="left") {
+						$('#carousel-example-1 .carousel-item').eq(i).appendTo('.carousel-inner');
+					}
+					else {
+						$('#carousel-example-1 .carousel-item').eq(0).appendTo('.carousel-inner');
+					}
+				}
+			}
+		});
+		
+		$( "#itemCommon" ).hide();
+		$( "#itemBest" ).hide();
+		$( "#itemNew" ).hide();
+		$( "#itemLow" ).hide();
+		$( "#itemHigh" ).hide();
+
+		$( "#common" ).click(function() {
+			$( "#itemCommon" ).show();
+			$( "#itemBest" ).hide();
+			$( "#itemNew" ).hide();
+			$( "#itemLow" ).hide();
+			$( "#itemHigh" ).hide();
+		});
+
+		$( "#bestSeller" ).click(function() {
+			
+			$( "#itemCommon" ).hide();
+			$( "#itemBest" ).show();
+			$( "#itemNew" ).hide();
+			$( "#itemLow" ).hide();
+			$( "#itemHigh" ).hide();
+		});
+
+		$( "#new" ).click(function() {
+			
+			$( "#itemCommon" ).hide();
+			$( "#itemBest" ).hide();
+			$( "#itemNew" ).show();
+			$( "#itemLow" ).hide();
+			$( "#itemHigh" ).hide();
+		});
+
+		$( "#low" ).click(function() {
+			
+			$( "#itemCommon" ).hide();
+			$( "#itemBest" ).hide();
+			$( "#itemNew" ).hide();
+			$( "#itemLow" ).show();
+			$( "#itemHigh" ).hide();
+		});
+
+		$( "#high" ).click(function() {
+			
+			$( "#itemCommon" ).hide();
+			$( "#itemBest" ).hide();
+			$( "#itemNew" ).hide();
+			$( "#itemLow" ).hide();
+			$( "#itemHigh" ).show();
+		});
+	</script>
+{{/section}}
+
+<div class="col-9 row">
+	<div class="w-100 mb-3">
+			<i class="fa fa-fire text-danger fa-3x float-left"></i>
+			<h5>TOP CÁC CUỐN SÁCH <br>
+			ĐƯỢC NHIỀU NGƯỜI MUA</h5>
+	</div>
+	{{#each best}}
+		<a class="card pt-2 pb-2 col-3 product-item" href="/buy/detail/{{bookID}}">
+			<img src="/BookWorm/book/{{bookID}}.jpg" class="img-fluid">
+			<div class="container">
+				<h6><b>{{bookName}}</b></h6>	
+					<b class="text-danger">{{format_number bookPrice}}</b>
+			</div>
+		</a>
+	{{/each}}
+</div>
+<h4 class="w-100">Sách mới phát hành</h4>
+<div>
+	<div id="carousel-example-1" class="carousel slide" data-ride="carousel">
+			<div class="carousel-inner row w-100 mx-auto" role="listbox">
+				{{#each newBook }}
+					{{#if active}}
+						<a class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 active product-item" href="/buy/detail/{{bookID}}">
+						<img src="/BookWorm/book/{{bookID}}.jpg" class="img-fluid" alt="img{{stt}}">
+					</a>
+					{{else}}
+					<a class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 product-item" href="/buy/detail/{{bookID}}">
+						<img src="/BookWorm/book/{{bookID}}.jpg" class="img-fluid" alt="img{{stt}}">
+					</a>
+					{{/if}}
+				{{/each}}
+			</div>
+			<a class="carousel-control-prev" href="#carousel-example-1" role="button" data-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span></a>
+			<a class="carousel-control-next" href="#carousel-example-1" role="button" data-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="sr-only">Next</span></a>
+	</div>
+</div>
+
+<div class="row">
+	<ul class="sort-type mt-5 w-100">
+		<li class="ml-5 pl-0">Ưu tiên xem: </li>
+		<li><a href="#" id="common" class="btn btn-outline-success">Phổ biến</a></li>
+		<li><a href="#" id="bestSeller" class="btn btn-outline-success">Bán chạy</a></li>
+		<li><a href="#" id="new" class="btn btn-outline-success">Hàng mới</a></li>
+		<li><a href="#" id="low" class="btn btn-outline-success">Giá thấp</a></li>
+		<li><a href="#" id="high" class="btn btn-outline-success">Giá cao</a></li>
+	</ul>
+</div>
+<div id = "itemCommon" class="row" >
+	{{#each common}}
+	<a class="col-3 product-item pt-2" href="/buy/detail/{{bookID}}">
+		<img src="/BookWorm/book/{{bookID}}.jpg" class="img-fluid h-auto" alt="item-0">
+		<div class="pl-4 pr-4">
+			<p style="font-size: 14px" class="mb-0 mt-2">{{bookName}}</p>	
+			<p class="font-weight-bold">{{format_number bookPrice}}</p>
+		</div>
+	</a>
+	{{/each}}
+</div>
+<div id = "itemBest" class="row">
+	{{#each best}}
+	<a class="col-3 product-item pt-2" href="/buy/detail/{{bookID}}">
+		<img src="/BookWorm/book/{{bookID}}.jpg" class="img-fluid h-auto" alt="item-0">
+		<div class="pl-4 pr-4">
+			<p style="font-size: 14px" class="mb-0 mt-2">{{bookName}}</p>	
+			<p class="font-weight-bold">{{format_number bookPrice}}</p>
+		</div>
+	</a>
+	{{/each}}
+</div>	
+<div id = "itemNew" class="row">
+	{{#each newBook}}
+	<a class="col-3 product-item pt-2" href="/buy/detail/{{bookID}}">
+		<img src="/BookWorm/book/{{bookID}}.jpg" class="img-fluid h-auto" alt="item-0">
+		<div class="pl-4 pr-4">
+			<p style="font-size: 14px" class="mb-0 mt-2">{{bookName}}</p>	
+			<p class="font-weight-bold">{{format_number bookPrice}}</p>
+		</div>
+	</a>
+	{{/each}}
+</div>
+<div id = "itemLow" class="row">
+	{{#each low}}
+	<a class="col-3 product-item pt-2" href="/buy/detail/{{bookID}}">
+		<img src="/BookWorm/book/{{bookID}}.jpg" class="img-fluid h-auto" alt="item-0">
+		<div class="pl-4 pr-4">
+			<p style="font-size: 14px" class="mb-0 mt-2">{{bookName}}</p>	
+			<p class="font-weight-bold">{{format_number bookPrice}}</p>
+		</div>
+	</a>
+	{{/each}}	
+</div>
+<div id = "itemHigh" class="row">
+	{{#each high}}
+	<a class="col-3 product-item pt-2" href="/buy/detail/{{bookID}}">
+		<img src="/BookWorm/book/{{bookID}}.jpg" class="img-fluid h-auto" alt="item-0">
+		<div class="pl-4 pr-4">
+			<p style="font-size: 14px" class="mb-0 mt-2">{{bookName}}</p>	
+			<p class="font-weight-bold">{{format_number bookPrice}}</p>
+		</div>
+	</a>
+	{{/each}}
+</div>
+

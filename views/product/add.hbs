@@ -1,0 +1,69 @@
+<div class="col-9">
+	<form method="POST" action="">
+		<div class="form-group">
+			<label for="bookName">Tên sách:</label>
+			<input class="form-control w-50" type="text" id="bookName" name="bookName" autofocus >
+		</div>
+
+		<div class="form-group">
+			<label for="bookPrice">Đơn giá:</label>
+			<input class="form-control w-50" type="text" id="bookPrice" name="bookPrice" >
+		</div>
+
+		<div class="form-group">
+			<label for="quantity">Số lượng bán:</label>
+			<input class="form-control w-50" type="text" id="quantity" name="quantity">
+		</div>
+
+		<div class="form-group">
+			<label for="catID">Thể loại:</label><br>
+			{{#each lcCategory}}
+				<input class="ml-2" type="radio" id="catID" name="catID" value={{catID}} checked="true">
+				<label for="catID">{{catName}}</label><br>
+			{{/each}}
+		</div>
+		
+		<div class="form-group">
+			<label for="authorName">Tác giả:</label>
+			<input class="form-control w-50" type="text" id="authorName" name="authorName" >
+		</div>
+
+		<div class="form-group">
+			<label for="publisher">Nhà xuất bản:</label>
+			<input class="form-control w-50" type="text" id="publisher" name="publisher" >
+		</div>
+
+		<div class="form-group">
+			<label for="datePublished">Ngày xuất bản:</label>
+			<input class="form-control w-50" type="date" id="datePublished" name="datePublished" >
+		</div>
+
+		<div class="form-group">
+			<label for="bookCover">Loại bìa:</label>
+			<input class="form-control w-50" type="text" id="bookCover" name="bookCover" >
+		</div>
+
+		<div class="form-group">
+			<label for="size">Kích thước:</label>
+			<input class="form-control w-50" type="text" id="size" name="size" >
+		</div>
+
+		<div class="form-group">
+			<label for="language">Ngôn ngữ:</label>
+			<input class="form-control w-50" type="text" id="language" name="language" >
+		</div>
+
+		<div class="form-group">
+			<label for="SKU">SKU:</label>
+			<input class="form-control w-50" type="text" id="SKU" name="SKU" >
+		</div>
+
+		<div class="form-group">
+			<label for="bookDescription">Mô tả:</label>
+			<input class="form-control w-50" type="text" id="bookDescription" name="bookDescription" >
+		</div>
+
+		<a href='/sell' role="button" class=" btn btn-outline-warning" >Hủy bỏ</a>
+		<button type="submit" class="btn btn-outline-primary ml-5">Xác nhận</button>
+	</form>
+</div>
