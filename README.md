@@ -1,5 +1,5 @@
 # BookWorm
-Course projects: Create a website to buy and sell books online, use HTML, CSS, JavaScript and NodeJS
+Course projects: Create a web to buy and sell books online, use HTML, CSS, JavaScript and NodeJS
 
 Features:
  - Authentication functions: sign in, sign up, forget password, view/change personal information, change password
